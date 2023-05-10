@@ -2,6 +2,7 @@
 
 using System;
 using System.Text;
+using System.Threading.Channels;
 
 namespace Project {
     internal class ConsoleTest {
@@ -118,6 +119,43 @@ namespace Project {
             // => || this or that,
             // => != is not true,s
             // => ? checks if true ==> : if not the this
+
+            Console.WriteLine("enter your birth year");
+            string input = Console.ReadLine();
+            // int parsedInput = int.Parse(input);
+            // float parsedFloat = float.Parse(input);
+           
+            // int age = DateTime.Now.Year - userInput;
+            // Console.WriteLine(age);
+
+            // if you want it to be 100% correct 
+            // use TryParse => checks 
+            int tryParseInput;
+            if (int.TryParse(input, out tryParseInput)) {
+                int ageOf = DateTime.Now.Year - tryParseInput;
+                Console.WriteLine(ageOf);
+            } else {
+                Console.WriteLine("value must be correct");
+            }
+
+            byte val = 125;
+            // byte needs no additional method to be converted to 
+            // int. Because it can store all the values its got
+            int valIn = val;
+            // how to convert int to byte
+            byte valReversed = (byte)valIn;
+
+
+            string[] cars = {"Audi", "Skoda", "Volvo", "Peugeot"};
+            Console.WriteLine("Please, enter the index number in cars array");
+            string intOfCar = Console.ReadLine();
+            int convertedIntOfCar = int.Parse(intOfCar);
+
+            if (convertedIntOfCar <= cars.Length - 1) {
+                Console.WriteLine(cars[convertedIntOfCar]);
+            } else {
+                Console.WriteLine("This number is not a valid index of cars array");
+            }
         }              
     }
 }
