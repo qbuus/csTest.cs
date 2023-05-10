@@ -1,4 +1,6 @@
-﻿using System;
+﻿// dotnet ./bin/Debug/net7.0/firstCode.dll
+
+using System;
 using System.Text;
 
 namespace Project {
@@ -86,6 +88,36 @@ namespace Project {
             Console.WriteLine(conc);
             Console.WriteLine(conc3);
             Console.WriteLine(sb);
+
+
+            // integers
+            int resultOfMaths;
+            int a = 12;
+            int b = 6;
+            bool bResults;
+
+            resultOfMaths = (a + b);
+            Console.WriteLine($"{resultOfMaths}");
+            resultOfMaths = (a - b);
+            Console.WriteLine(resultOfMaths);
+            resultOfMaths = (a * b);
+            Console.WriteLine(resultOfMaths);
+            resultOfMaths = (a / b);
+            Console.WriteLine(resultOfMaths);
+            resultOfMaths = (a % b);
+            Console.WriteLine(resultOfMaths);
+
+            bResults = (a >= 10);
+            Console.WriteLine(bResults);
+            bResults = (b != a);
+            Console.WriteLine(bResults);
+
+            bResults = (a >= 10 && b <= 7);
+            Console.WriteLine(bResults);
+
+            // => || this or that,
+            // => != is not true,s
+            // => ? checks if true ==> : if not the this
         }              
     }
 }
