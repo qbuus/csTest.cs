@@ -156,6 +156,35 @@ namespace Project {
             } else {
                 Console.WriteLine("This number is not a valid index of cars array");
             }
+
+            // iteration 
+            int w = 0;
+
+            // while
+            while (w <= cars.Length - 1) {
+                Console.WriteLine(w);
+                w++;
+            }
+            
+            // do while
+            Console.WriteLine("to exit type x");          
+            string userInput;
+            do {
+                userInput = Console.ReadLine();
+                Console.WriteLine($"Echo: {userInput}");
+            } while (userInput != "x"); 
+
+            // for
+            for (int i = 0; i <= cars.Length -1; i++)
+            {
+                Console.WriteLine($"car: {i}");
+            }
+
+            // for each 
+            foreach (var item in cars)
+            {
+                Console.WriteLine($"name: {item}");
+            }
         }              
     }
 }
