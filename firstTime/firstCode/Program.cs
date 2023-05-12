@@ -2,6 +2,7 @@
 
 using System;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Channels;
 
 namespace Project {
@@ -263,6 +264,13 @@ namespace Project {
             DateTime then = new DateTime(yearOfBirth, monthOfBirth, dayOfBirth);                            
             TimeSpan result = atm - then;
             Console.WriteLine($"Diff in days: {result.Days}");
+
+
+            // regex
+            string emailIsValid = "k12.k21@gmail.com";
+            Regex regexEmail = new Regex(@"^([a-z0-9]+)\.?([a-z0-9]+)@([a-z]+)\.[a-z]{2,3}$");
+            bool isItValid = regexEmail.IsMatch(emailIsValid);
+            Console.WriteLine(isItValid);
         }              
     }
 }
