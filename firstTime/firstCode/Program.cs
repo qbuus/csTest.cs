@@ -5,6 +5,16 @@ using System.Text;
 using System.Threading.Channels;
 
 namespace Project {
+    enum DayOf: byte
+            {
+                Monday = 1,
+                Tuesday = 2,
+                Wednesday = 3,
+                Thursday = 4,
+                Friday = 5,
+                Saturday = 5,
+                Sunday = 6,
+            }
     internal class ConsoleTest {
         private static void Main(string[] args) {
             Console.WriteLine("Hello World");
@@ -193,7 +203,7 @@ namespace Project {
 
             int validInputCheck; 
             int sum = 0;
-            int biggestNum = 0;
+            int? biggestNum = null;
             do {
                 string userInputCheck = Console.ReadLine();
                 validInputCheck = int.Parse(userInputCheck);
@@ -209,7 +219,26 @@ namespace Project {
                     Console.WriteLine($"Your biggest entry was: {biggestNum}");
                 };
             } while (validInputCheck != 0);          
-            
+
+
+            // switch statement
+             switch (DateTime.Now.DayOfWeek)
+             {
+                case DayOfWeek.Saturday: 
+                    Console.WriteLine("It's Saturday!");
+                    break;
+                case DayOfWeek.Sunday: 
+                    Console.WriteLine("It's Sunday!");
+                    break;
+                default: 
+                Console.WriteLine("Go to work !");
+                break;
+             }
+
+             int? dayOfTheWeekYouLike = default;
+             Console.WriteLine("Choose your favorite day of the week");
+             Console.ReadLine();
+             Console.WriteLine($"Favorite day of the week is: {(dayOfTheWeekYouLike.HasValue ? dayOfTheWeekYouLike.Value: "")}")           
         }              
     }
 }
