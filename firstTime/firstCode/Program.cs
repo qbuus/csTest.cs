@@ -238,7 +238,18 @@ namespace Project {
              int? dayOfTheWeekYouLike = default;
              Console.WriteLine("Choose your favorite day of the week");
              Console.ReadLine();
-             Console.WriteLine($"Favorite day of the week is: {(dayOfTheWeekYouLike.HasValue ? dayOfTheWeekYouLike.Value: "")}")           
+             Console.WriteLine($"Favorite day of the week is: {(dayOfTheWeekYouLike.HasValue ? dayOfTheWeekYouLike.Value: "")}");
+
+             try {
+                Console.WriteLine("done");
+                cars[6] = "Lancia";
+             } catch (IndexOutOfRangeException e){
+                Console.WriteLine("indexoutofrangeexception");
+             } catch (Exception e) {
+                Console.WriteLine("handling any error");
+             } // finally runs no matter what
+             finally {Console.WriteLine("done no matter what");
+             }         
         }              
     }
 }
