@@ -249,7 +249,20 @@ namespace Project {
                 Console.WriteLine("handling any error");
              } // finally runs no matter what
              finally {Console.WriteLine("done no matter what");
-             }         
+             }   
+
+            
+            Console.WriteLine("Enter your birth date");
+            Console.WriteLine("Enter your birth year");
+            int yearOfBirth = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter your birth month. From 1 to 12");
+            int monthOfBirth = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter your day of birth. From 1 to 31");
+            int dayOfBirth = int.Parse(Console.ReadLine());   
+
+            DateTime then = new DateTime(yearOfBirth, monthOfBirth, dayOfBirth);                            
+            TimeSpan result = atm - then;
+            Console.WriteLine($"Diff in days: {result.Days}");
         }              
     }
 }
