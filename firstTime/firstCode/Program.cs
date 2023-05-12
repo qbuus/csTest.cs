@@ -181,10 +181,36 @@ namespace Project {
             }
 
             // for each 
-            foreach (var item in cars)
+            foreach (string item in cars)
             {
                 Console.WriteLine($"name: {item}");
             }
+
+
+            Console.WriteLine("Please Enter a number");
+            Console.WriteLine("It adds each entry to one another");
+            Console.WriteLine("Enter value == 0 to exit and see the results");
+
+            int validInputCheck; 
+            int sum = 0;
+            int biggestNum = 0;
+            do {
+                string userInputCheck = Console.ReadLine();
+                validInputCheck = int.Parse(userInputCheck);
+                
+                if (biggestNum <= validInputCheck) {
+                    biggestNum = validInputCheck;
+                };
+                
+                sum += validInputCheck;
+
+                if (validInputCheck == 0) {
+                    Console.WriteLine($"Your sum is: {sum}");
+                    Console.WriteLine($"Your biggest entry was: {biggestNum}");
+                };
+            } while (validInputCheck != 0);          
+            
         }              
     }
 }
+// dotnet ./bin/Debug/net7.0/firstCode.dll
