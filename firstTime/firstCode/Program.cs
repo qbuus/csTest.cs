@@ -1,5 +1,4 @@
 ﻿// dotnet ./bin/Debug/net7.0/firstCode.dll
-
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -271,7 +270,36 @@ namespace Project {
             Regex regexEmail = new Regex(@"^([a-z0-9]+)\.?([a-z0-9]+)@([a-z]+)\.[a-z]{2,3}$");
             bool isItValid = regexEmail.IsMatch(emailIsValid);
             Console.WriteLine(isItValid);
-        }              
+
+            Car adam = new Car("toyota", 2013, 10200);
+            Car Jay = new Car("Ford", 2015, 116000);
+            // constructor values
+        //    if (adam.CarName != null) {
+        //     Console.WriteLine($"{adam.CarName}");
+        //    } 
+            // adam.mileage = 15200;
+            // adam.yearOfProduction = 2013;
+            
+            Console.WriteLine($"amount of object: {Car.Count}");
+            adam.CheckIfPast(adam.yearOfProduction);
+            adam.checkInt();
+            adam.WriteAll();
+            Jay.CheckIfPast(Jay.yearOfProduction);
+            Jay.checkInt();
+            Jay.WriteAll();
+
+            File testFile = new File();
+            testFile.Name = "testFile";
+            testFile.Size = 12;
+            testFile.whenCreatedFile = DateTime.Now;  
+            testFile.Info();  
+            
+            Anotherfile testAnoterFile = new Anotherfile(); 
+            testAnoterFile.Name = "testAnoterFile";
+            testAnoterFile.Size = 24;
+            testAnoterFile.whenCreatedFile = DateTime.Now; 
+            testAnoterFile.Info();  
+        } 
     }
 }
 // dotnet ./bin/Debug/net7.0/firstCode.dll
