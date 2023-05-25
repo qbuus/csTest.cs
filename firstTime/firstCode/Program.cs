@@ -331,6 +331,9 @@ namespace Project {
 
             if (Console.ReadKey(true).Key == ConsoleKey.Escape) {
                 ShowListElements(stringListCollection);
+
+                stringListCollection.Sort();
+                ShowListElements(stringListCollection);
                 
                 stringListCollection.RemoveRange(0,1);
                 ShowListElements(stringListCollection);
@@ -340,8 +343,7 @@ namespace Project {
                 
                 break;
             }
-          } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
-          
+          } while (Console.ReadKey(true).Key != ConsoleKey.Escape);        
         } 
     }
 }
