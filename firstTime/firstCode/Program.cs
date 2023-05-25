@@ -299,6 +299,10 @@ namespace Project {
             testAnoterFile.Size = 24;
             testAnoterFile.whenCreatedFile = DateTime.Now; 
             testAnoterFile.Info();  
+
+            string[] arrayOfStringToTest = {"1", "2", "3"};
+            int lengthOfAnStringArray = arrayOfStringToTest.Length;
+            Console.WriteLine($"{lengthOfAnStringArray}");
         } 
     }
 }
