@@ -3,6 +3,7 @@ using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Channels;
+using System.Collections.Generic;
 
 namespace Project {
     enum DayOf: byte
@@ -203,16 +204,15 @@ namespace Project {
 
             int validInputCheck; 
             int sum = 0;
-            int? biggestNum = null;
+            int biggestNum = 0;
             do {
                 string userInputCheck = Console.ReadLine();
                 validInputCheck = int.Parse(userInputCheck);
                 
+                sum += validInputCheck;
                 if (biggestNum <= validInputCheck) {
                     biggestNum = validInputCheck;
                 };
-                
-                sum += validInputCheck;
 
                 if (validInputCheck == 0) {
                     Console.WriteLine($"Your sum is: {sum}");
@@ -303,6 +303,45 @@ namespace Project {
             string[] arrayOfStringToTest = {"1", "2", "3"};
             int lengthOfAnStringArray = arrayOfStringToTest.Length;
             Console.WriteLine($"{lengthOfAnStringArray}");
+
+            List<string> stringListCollection = new List<string>(){"1", "2", "3"};
+            // {} after () in List means we add a starting values
+            // int value = 4;
+            // stringListCollection.Add("4");
+            // // after adding 1 item to the array of str's
+            static void ShowListElements(List<string> List){
+                
+                Console.WriteLine("List is as follows:");
+
+                foreach (string item in List)
+                {
+                    Console.WriteLine($"{item}, ");
+                }
+            };
+            // ShowListElements(stringListCollection);
+
+            
+            Console.WriteLine("To add new element to List type whatever you want");
+            Console.WriteLine("Click escape to exit");      
+          do 
+          {         
+            string ConsoleInput = Console.ReadLine();
+            stringListCollection.Add(ConsoleInput);
+            Console.WriteLine($"value {ConsoleInput} added to the List");
+
+            if (Console.ReadKey(true).Key == ConsoleKey.Escape) {
+                ShowListElements(stringListCollection);
+                
+                stringListCollection.RemoveRange(0,1);
+                ShowListElements(stringListCollection);
+                
+                stringListCollection.Clear();
+                ShowListElements(stringListCollection);
+                
+                break;
+            }
+          } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+          
         } 
     }
 }
