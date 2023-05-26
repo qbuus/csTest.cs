@@ -343,7 +343,7 @@ namespace Project {
                 
                 break;
             }
-          } while (Console.ReadKey(true).Key != ConsoleKey.Escape);              
+          } while (Console.ReadKey(true).Key != ConsoleKey.Escape);  
         } 
     }
 }
