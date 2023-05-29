@@ -1,9 +1,9 @@
-﻿// dotnet ./bin/Debug/net7.0/firstCode.dll
-using System;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Channels;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Project {
     enum DayOf: byte
@@ -16,8 +16,15 @@ namespace Project {
                 Saturday = 5,
                 Sunday = 6,
             }
-    internal class ConsoleTest {
-        private static void Main(string[] args) {
+    class Program {
+        static void CheckFiles() 
+        {
+            var doc2 = System.IO.File.ReadAllText(@"C:\Users\jkocz\Desktop\123\123.txt");
+            var doc1 = System.IO.File.ReadAllLines(@"C:\Users\jkocz\Desktop\123\321.txt");
+            Console.WriteLine(doc2);
+            Console.WriteLine(doc1);
+        }
+        static void Main(string[] args) {
             Console.WriteLine("Hello World");
             Console.WriteLine("Welcome World");
 
@@ -344,6 +351,25 @@ namespace Project {
                 break;
             }
           } while (Console.ReadKey(true).Key != ConsoleKey.Escape);  
+
+          
+                do
+            {
+                Console.WriteLine("To exit click Escape on your keyboard");
+                Console.WriteLine("type a number and check if it is negative");
+                int checkIfNegativeNumber = int.Parse(Console.ReadLine());
+                if (checkIfNegativeNumber < 0) 
+                {
+                Console.WriteLine(checkIfNegativeNumber + " is a negative number");
+                } else 
+                {
+                Console.WriteLine(checkIfNegativeNumber + " is not a negative number");
+                }
+
+                if (Console.ReadKey(true).Key == ConsoleKey.Escape) {break;}
+            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+
+            CheckFiles();
         } 
     }
 }
