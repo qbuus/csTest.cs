@@ -19,12 +19,23 @@ namespace Project {
     class Program {
         static void CheckFiles() 
         {
-            var doc2 = System.IO.File.ReadAllText(@"C:\Users\jkocz\Desktop\123\123.txt");
-            var doc1 = System.IO.File.ReadAllLines(@"C:\Users\jkocz\Desktop\123\321.txt");
-            Console.WriteLine(doc2);
-            Console.WriteLine(doc1);
+            var doc2 = "C:/Users/jkocz/Desktop/123/123.txt";
+            var doc1 = "C:/Users/jkocz/Desktop/123/321.txt";
+
+            var content2 = System.IO.File.ReadAllLines(doc2);
+            var content1 = System.IO.File.ReadAllLines(doc1);
+
+            // used for all Idisposable classes
+            // will be closed even with exception 
+            // because of dispose 
+            using (var ContentStream = new FileStream(doc1, FileMode.Open))
+            {
+                throw new Exception();
+            }           
         }
-        static void Main(string[] args) {
+
+        static void Basics() 
+        {
             Console.WriteLine("Hello World");
             Console.WriteLine("Welcome World");
 
@@ -369,7 +380,60 @@ namespace Project {
                 if (Console.ReadKey(true).Key == ConsoleKey.Escape) {break;}
             } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
 
-            CheckFiles();
+        }
+
+        static void SubString(string input)
+        {   
+            if (input != null && input.Length > 10) {
+            Console.WriteLine("starting input is " + input);
+            string substr = input.Substring(1); // (start index, length)
+            string lastt10Sub = input.Substring(input.Length - 10); // last 1 char till the end
+            Console.WriteLine(substr + " starting at 1, length not specified, with whitespace");
+            Console.WriteLine(lastt10Sub + " last 1 till the end with whitespace, no 2nd parameter");
+            }
+        }
+
+        static void Replace(string input)
+        {
+            Console.WriteLine("will be replaced");
+            string strToReplace = "Replaced: {replaced}";
+            Console.WriteLine($"{strToReplace}");
+            string outP = strToReplace.Replace("{replace}", input);
+            Console.WriteLine($"{outP}");
+        }
+
+        static void Modify(string input)
+        {
+            string clearedStr = input.Remove(5);
+            Console.WriteLine($"Removed after 5 length {clearedStr}"); // only first 5, next chars are removed
+            string insertStr = input.Insert(5, "inserted");
+            Console.WriteLine($"added to 5th index value:  {clearedStr}");
+            string trimmerdStr = input.Trim(); // trimms white space around the string
+        }
+
+        static void AlterTextClasses(string input)
+        {
+            string upperCase = input.ToUpper(); // uppercase
+            Console.WriteLine($"{upperCase}");
+            string lowerCase = input.ToLower(); // lowercase
+            Console.WriteLine($"{lowerCase}");
+        }
+
+        static void Split(string input)
+        {
+            string[] splitInput = input.Split(" "); // with space
+            string first = splitInput[0];
+            string last = splitInput[splitInput.Length - 1];
+            Console.WriteLine(first + last);
+        }
+        static void Main(string[] args) {
+            Console.WriteLine("type something");
+            string TypeInput = Console.ReadLine();
+
+            SubString(TypeInput);
+            Replace(TypeInput);
+            Modify(TypeInput);
+            Split(TypeInput);
         } 
     }
 }
