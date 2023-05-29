@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace Project {
     enum DayOf: byte
@@ -426,14 +427,44 @@ namespace Project {
             string last = splitInput[splitInput.Length - 1];
             Console.WriteLine(first + last);
         }
-        static void Main(string[] args) {
-            Console.WriteLine("type something");
-            string TypeInput = Console.ReadLine();
 
-            SubString(TypeInput);
-            Replace(TypeInput);
-            Modify(TypeInput);
-            Split(TypeInput);
+        static void DateTimePlay()
+        {
+            DateTime now = DateTime.Now;
+            DateTime birthdayDate = new DateTime(1999, 5, 8);
+            TimeSpan difference = now - birthdayDate;
+            Console.WriteLine(difference);
+
+            DateTime adds = now.AddDays(7);
+            Console.WriteLine("added 7 day to now " + adds);
+
+            DateTime addsWithTimeSpan = now.Add(new TimeSpan(7,0,0,0));
+            Console.WriteLine("added 7 day to now " + addsWithTimeSpan);
+
+            bool isDateEqual = adds.Date == addsWithTimeSpan.Date;
+            Console.WriteLine(isDateEqual);
+
+            Console.WriteLine("Format Date To Long" + now.ToLongDateString());
+            Console.WriteLine("Format Date To Short" + now.ToShortDateString());
+
+            TimeSpan HowLong = addsWithTimeSpan - now;
+            Console.WriteLine("time measuremenet" + HowLong);
+
+           // ||
+
+           Stopwatch stopwatch = Stopwatch.StartNew();
+           stopwatch.Stop(); 
+           Console.WriteLine(stopwatch.Elapsed.TotalSeconds);
+
+           // helpers
+            int DaysInFeb = DateTime.DaysInMonth(2022, 2);
+            Console.WriteLine("February days in 2022: " + DaysInFeb);
+
+            bool isLeapYear = DateTime.IsLeapYear(2022);
+            Console.WriteLine("Was 2022 a leap year?: " + isLeapYear);
+        }
+        static void Main(string[] args) {
+            DateTimePlay();
         } 
     }
 }
