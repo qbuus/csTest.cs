@@ -1,4 +1,4 @@
-﻿﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -631,6 +631,33 @@ namespace Project {
             var App = LoadApp(csvPath);
 
             Display(App);
+        }
+
+        static void genericTypes()
+        {   
+            string stringInput = Console.ReadLine();
+            int number;
+            List<int> intList = new List<int>();
+            bool success = int.TryParse(stringInput, out number);
+            if (success)
+            {
+                intList.Add(number);
+            }
+
+            var rests = new List<Restau>();
+            var results = new PaginatedResults<Restau>();
+            results.ListResults = rests;
+
+            var users = new List<User>();
+
+            var stringStorage = new Storage<IStorage>();
+            stringStorage.rtSpecificElement(1);
+
+            var firstEl = stringStorage.rtSpecificElement(0);
+
+            var userDic = new Storage<string, User>();
+            userDic.add("first", new User() {Name = "Bill"});
+            userDic.rtSpecificElement("Bill");
         }
         static void Main(string[] args) {} 
     }
