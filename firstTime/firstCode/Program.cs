@@ -659,7 +659,16 @@ namespace Project {
             userDic.add("first", new User() {Name = "Bill"});
             userDic.rtSpecificElement("Bill");
         }
-        static void Main(string[] args) {} 
+
+        public delegate void DisplayDelegate(string value);
+        static void DspDlg(string input)
+        {
+            DisplayDelegate Display = Console.WriteLine;
+            Display(input);
+        }
+        static void Main(string[] args) {
+           
+        } 
     }
 }
 // dotnet ./bin/Debug/net7.0/firstCode.dll
