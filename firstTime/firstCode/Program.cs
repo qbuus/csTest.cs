@@ -666,6 +666,14 @@ namespace Project {
             DisplayDelegate Display = Console.WriteLine;
             Display(input);
         }
+
+        static async Task AsyncTest()
+        {
+            Console.WriteLine("1");
+            await Task.Delay(3000);   
+            throw new Exception();      
+            Console.WriteLine("2");
+        }
         static void Main(string[] args) {
            
         } 
