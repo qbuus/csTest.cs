@@ -1,10 +1,13 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.IO;
 using System.Text.RegularExpressions;
-using System.Diagnostics;
+using CsvHelper;
+using CsvHelper.Configuration;
 
 namespace Project {
     enum DayOf: byte
@@ -463,9 +466,173 @@ namespace Project {
             bool isLeapYear = DateTime.IsLeapYear(2022);
             Console.WriteLine("Was 2022 a leap year?: " + isLeapYear);
         }
-        static void Main(string[] args) {
-            DateTimePlay();
-        } 
+
+        static List<GoogleApp> LoadApp(string csvPath)
+        {
+            using (var reader = new StreamReader(csvPath))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                csv.Context.RegisterClassMap<GoogleAppMap>();
+                var records = csv.GetRecords<GoogleApp>().ToList();
+                return records;
+            }
+
+        }
+
+        static void GetData(IEnumerable<GoogleApp> googleApps)
+        {   
+
+            var above46 = googleApps.Where((GoogleApp c) => c.Rating > 4.6 && c.Category == Category.BEAUTY);
+            Display(above46);
+
+            var reviews = above46.FirstOrDefault(c => c.Reviews < 300);
+            
+            var reviewsSingle = above46.Single(c => c.Reviews < 300);
+            // when singleordefault is used instead of single we get
+            // null if no match is found
+
+            var reviewsSingleLast = above46.Last(c => c.Reviews < 300);
+            // when lastordefault is used instead of last we get
+            // null if no match is found
+        }
+
+        static void Project(IEnumerable<GoogleApp> googleApps)
+        {
+            var above46 = googleApps.Where((GoogleApp c) => c.Rating > 4.6 && c.Category == Category.BEAUTY);
+                      
+            // list of names of apps where rating is above46
+            // List<string> NamesOfAbove46 = new List<string>();
+            // foreach (var item in above46)
+            // {
+            //     NamesOfAbove46.Add(item.Name);
+            // }
+
+            // does the same but with the select method
+            var above46Names = above46.Select(c => c.Name);
+
+            // dto to communicate with end user
+            var dtoNames = above46.Select(c => new dto()
+            {
+                Reviews = c.Reviews,
+                Name = c.Name
+            });
+
+            foreach (var item in dtoNames)
+            {
+                Console.WriteLine(item.Name, item.Reviews);
+            }
+
+            var gen = above46.SelectMany(c => c.Genres);
+            Console.WriteLine(string.Join(", ", gen));
+
+            var anonymouseType = above46.Select(c => new
+            {
+                Reviews = c.Reviews,
+                Name = c.Name,
+                Category = c.Category
+            });
+
+             foreach (var item in anonymouseType)
+            {
+                Console.WriteLine(item.Name, item.Reviews);
+            }
+        }
+
+        static void Divide(IEnumerable<GoogleApp> googleApps)
+        {
+                var above46 = googleApps.Where((GoogleApp c) => c.Rating > 4.6 && c.Category == Category.BEAUTY);
+
+                // only 5 results
+                var only5Results = above46.Take(5);
+                // only last 5 results
+                var onlyLast5Results = above46.TakeLast(5);
+
+                // takes results that are true in lambda
+                var takeWhileResults = above46.TakeWhile(c => c.Reviews < 1000);
+
+                // skips first 5 results then shows the rest
+                var skippFirst5AndShowWhatsAfter = above46.Skip(5);
+
+                // skipWhile takes lamba and returs whats true 
+                var skipWhileResults = above46.SkipWhile(c => c.Reviews < 1000);
+        }
+
+        static void Sorts(IEnumerable<GoogleApp> googleApps)
+        {
+            var baseData = googleApps.Where((GoogleApp c) => c.Rating > 4.4 && c.Category == Category.BEAUTY);
+
+            // default sorting (ascending) by reviews
+            var sortedData = baseData.OrderBy(c => c.Reviews);
+
+            var descendingData = baseData.OrderByDescending(c => c.Reviews);         
+        }
+
+        static void CollectionData(IEnumerable<GoogleApp> googleApps)
+        {
+            var baseData = googleApps.Where((GoogleApp c) => c.Type == Type.Paid).Select(a => a.Category)
+            .Distinct();
+            // Disting means no duplicates
+
+            var set1 = googleApps.Where(c => c.Rating > 4.7 && c.Type == Type.Paid && c.Reviews > 1000);
+            var set2 = googleApps.Where(c => c.Name.Contains("Pro") && c.Rating > 4.6 && c.Reviews > 10000);
+
+            // both covers the same data            
+            set1.Union(set2);
+
+            // first set except it does not cover what 1 does in a second one 
+            set1.Except(set2);
+        }
+
+        static void VerifyData(IEnumerable<GoogleApp> googleApps)
+        {
+            var baseData = googleApps.Where(a => a.Category == Category.WEATHER)
+            .All(a => a.Reviews > 10);
+            // all weather categories with more reviews than 10 
+
+            var baseAnyData = googleApps.Where(a => a.Category == Category.WEATHER)
+            .Any(c => c.Reviews > 10);
+            // if any match the condition given to lambda
+        }
+
+        static void Groups(IEnumerable<GoogleApp> googleApps)
+        {
+            // var baseData = googleApps.GroupBy(c => c.Category)
+            // .First(c => c.Key == Category.ART_AND_DESIGN)
+            // .Select(e=>e).ToList();
+            // Display(baseData);
+
+            var baseGroup = googleApps.GroupBy(c => c.Category);
+
+            foreach (var group in baseGroup)
+            {
+               var avgReviews = group.Average(c => c.Reviews);
+               var least = group.Min(c => c.Reviews);
+               var max = group.Max(c => c.Reviews);
+               var sumUp = group.Sum(c => c.Reviews);
+            }
+        }
+
+        static void Display(IEnumerable<GoogleApp> googleApps)
+        {
+            foreach (var item in googleApps)
+            {
+                
+            }
+        }
+
+        static void Display(GoogleApp googleApp)
+        {
+            Console.WriteLine(googleApp);
+        }
+
+        static void LinqCs()
+        {
+            string csvPath = @"C:\Users\jkocz\Desktop\googleplaystore1.csv";
+            var App = LoadApp(csvPath);
+
+            Display(App);
+        }
+        static void Main(string[] args) {} 
     }
 }
 // dotnet ./bin/Debug/net7.0/firstCode.dll
