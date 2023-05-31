@@ -706,7 +706,45 @@ namespace Project {
                 // params["postId"] = "1";
             };
         }
+
+        static void ReflDisplay(Object obj)
+        {
+            var type = obj.GetType();
+            var properties = type.GetProperties();
+
+            foreach (var item in properties)
+            {
+                var objValue = item.GetValue(obj);
+                
+                var typeOfEachItem = objValue.GetType();
+
+                if (typeOfEachItem.IsPrimitive || typeOfEachItem == typeof(string))
+                {
+                    Console.WriteLine($"{item.Name}: {objValue}");
+                }
+            }
+        }
+
+        static void Refl()
+        {
+            Address  address = new Address ()
+            {
+                City = "Cracow",
+                Name = "Adam",
+                Id = 1
+            };
+
+            Person person = new Person()
+            {
+                Name = "Jacek",
+                Id = 2
+            };
+
+            ReflDisplay(person);
+            ReflDisplay(address);
+        }
         static void Main(string[] args) {
+            Refl();
         } 
     }
 }
