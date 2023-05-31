@@ -6,8 +6,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Newtonsoft;
+using Newtonsoft.Json;
+using Flurl.Http;
 
 namespace Project {
     enum DayOf: byte
@@ -674,8 +678,35 @@ namespace Project {
             throw new Exception();      
             Console.WriteLine("2");
         }
+
+        static async Task httpApi()
+        {   
+            // IDisposable so using should be used
+            using   (var httpClient = new HttpClient())
+            {
+                var apiResult = await httpClient.GetAsync("https://jsonplaceholder.typicode.com/posts");
+                var jsonResponse = await apiResult.Content.ReadAsStringAsync();
+                var postsJson = JsonConvert.DeserializeObject<List<ApiResponseBody>>(jsonResponse);
+                var selected = postsJson.First(p => p.Id == 30);
+                Console.WriteLine(selected.Title);
+
+                selected.Title = "title";
+                selected.Body = "body";
+                var postBody = new StringContent(JsonConvert.SerializeObject(selected));
+                var postResults = await httpClient.PostAsync("https://jsonplaceholder.typicode.com/posts", postBody);
+
+                using (var msg = new HttpRequestMessage(HttpMethod.Post, "https://jsonplaceholder.typicode.com/posts"))
+                {
+                    msg.Headers.Add("content-type", "application/json");
+                    msg.Content = postBody;
+                    var postResultss = await httpClient.SendAsync(msg);
+                };
+                
+                // var params = HttpUtility.ParseQueryString(string.Empty);
+                // params["postId"] = "1";
+            };
+        }
         static void Main(string[] args) {
-           
         } 
     }
 }
