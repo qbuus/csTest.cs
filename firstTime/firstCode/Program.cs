@@ -744,11 +744,7 @@ namespace Project {
             ReflDisplay(address);
         }
         static void Main(string[] args) {
-            do
-            {
-                Calculator.Calculate();
-            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
-            
+        
         } 
     }
 }
