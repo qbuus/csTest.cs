@@ -744,7 +744,29 @@ namespace Project {
             ReflDisplay(address);
         }
         static void Main(string[] args) {
-        
+            do
+            {
+                Console.WriteLine("Choose what game you would like to play");
+                Console.WriteLine("|| ______ ||");
+                Console.WriteLine("1 __ Calculator");
+                Console.WriteLine("2 __ Dice game against ai");
+                Console.WriteLine("To exit click key Escape");
+                int UserInput = int.Parse(Console.ReadLine());
+
+                switch (UserInput)
+                {
+                    case 1:
+                    Calculator.Calculate();                      
+                        break;
+                    case 2:
+                    DiceGame.Game();                     
+                        break;
+                    default:
+                        Console.WriteLine("");
+                        break;
+                }  
+            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+                    
         } 
     }
 }
