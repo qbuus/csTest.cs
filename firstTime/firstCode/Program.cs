@@ -750,16 +750,20 @@ namespace Project {
                 Console.WriteLine("|| ______ ||");
                 Console.WriteLine("1 __ Calculator");
                 Console.WriteLine("2 __ Dice game against ai");
+                Console.WriteLine("3 __ Battle turn based game");
                 Console.WriteLine("To exit click key Escape");
                 int UserInput = int.Parse(Console.ReadLine());
 
                 switch (UserInput)
                 {
                     case 1:
-                    Calculator.Calculate();                      
+                        Calculator.Calculate();                      
                         break;
                     case 2:
-                    DiceGame.Game();                     
+                        DiceGame.Game();                     
+                        break;
+                    case 3:
+                        TurnBasedGame.Game();
                         break;
                     default:
                         Console.WriteLine("");
